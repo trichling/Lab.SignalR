@@ -1,0 +1,15 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<script language="javascript">
+    var ChatAPIBaseUrl = '@Configuration["Dependencies:APIs:ChatAPIBaseUrl"]';
+    var room = "@ViewData["room"]";
+</script>
+
+<div id="app">
+    <chat-client></chat-client>
+</div>
+
+@section Scripts {
+    <script src="//@Url.ActionContext.HttpContext.Request.Host@Url.Content("~/views/Chat/index.js")"></script>
+}

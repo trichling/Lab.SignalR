@@ -1,0 +1,57 @@
+{
+   // Use IntelliSense to find out which attributes exist for C# debugging
+   // Use hover for the description of the existing attributes
+   // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+   "version": "0.2.0",
+   "compounds": [
+       {
+           "name": "Lauch client & server",
+           "configurations": ["Launch client", "Launch Server"]
+       }
+   ],
+   "configurations": [
+       {
+           "name": "Launch client",
+           "type": "coreclr",
+           "request": "launch",
+           "preLaunchTask": "buildClient",
+           "program": "${workspaceRoot}/Dnp.SignalR.Client/bin/Debug/netcoreapp2.0/Dnp.SignalR.Client.dll",
+           "args": ["sendMessage"],
+           "cwd": "${workspaceRoot}",
+           "stopAtEntry": false,
+           "console": "externalTerminal"
+       },
+        {
+            "name": "Launch Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "buildServer",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/Dnp.SignalR.Server/bin/Debug/netcoreapp2.0/Dnp.SignalR.Server.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Dnp.SignalR.Server",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Local"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        }
+    ]
+}
