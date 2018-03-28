@@ -1,6 +1,6 @@
 using System;
 
-namespace Dnp.SignalR.Server.Models
+namespace Lab.SignalR.Server.Models
 {
     public class ErrorViewModel
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Dnp.SignalR.Server.Models
+namespace Lab.SignalR.Server.Models
 {
 
     public class GoodsReceipt

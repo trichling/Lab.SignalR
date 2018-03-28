@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.CommandLineUtils;
 
-namespace Dnp.SignalR.Client
+namespace Lab.SignalR.Client
 {
     class Program
     {

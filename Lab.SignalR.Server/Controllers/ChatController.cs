@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dnp.SignalR.Server.Controllers 
+namespace Lab.SignalR.Server.Controllers 
 {
 
     [Route("chat")]

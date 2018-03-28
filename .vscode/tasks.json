@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Dnp.SignalR.Server/Dnp.SignalR.Server.csproj"
+                "${workspaceFolder}/Lab.SignalR.Server/Lab.SignalR.Server.csproj"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Dnp.SignalR.Client/Dnp.SignalR.Client.csproj"
+                "${workspaceFolder}/Lab.SignalR.Client/Lab.SignalR.Client.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

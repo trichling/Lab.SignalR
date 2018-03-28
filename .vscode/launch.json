@@ -15,7 +15,7 @@
            "type": "coreclr",
            "request": "launch",
            "preLaunchTask": "buildClient",
-           "program": "${workspaceRoot}/Dnp.SignalR.Client/bin/Debug/netcoreapp2.0/Dnp.SignalR.Client.dll",
+           "program": "${workspaceRoot}/Lab.SignalR.Client/bin/Debug/netcoreapp2.0/Lab.SignalR.Client.dll",
            "args": ["sendMessage"],
            "cwd": "${workspaceRoot}",
            "stopAtEntry": false,
@@ -27,9 +27,9 @@
             "request": "launch",
             "preLaunchTask": "buildServer",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Dnp.SignalR.Server/bin/Debug/netcoreapp2.0/Dnp.SignalR.Server.dll",
+            "program": "${workspaceFolder}/Lab.SignalR.Server/bin/Debug/netcoreapp2.0/Lab.SignalR.Server.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Dnp.SignalR.Server",
+            "cwd": "${workspaceFolder}/Lab.SignalR.Server",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {

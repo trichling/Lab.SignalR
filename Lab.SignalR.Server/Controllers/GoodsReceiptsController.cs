@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dnp.SignalR.Server.Models;
+using Lab.SignalR.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dnp.SignalR.Server.Controllers 
+namespace Lab.SignalR.Server.Controllers 
 {
 
     [Route("goodsreceipts")]

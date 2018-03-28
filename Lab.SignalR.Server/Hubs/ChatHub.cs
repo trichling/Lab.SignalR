@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Dnp.SignalR.Server.Hubs 
+namespace Lab.SignalR.Server.Hubs 
 {
     // https://weblogs.asp.net/ricardoperes/signalr-in-asp-net-core
     public class ChatHub : Hub
