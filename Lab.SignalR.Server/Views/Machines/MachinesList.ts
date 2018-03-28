@@ -25,7 +25,7 @@ export default class MachinesList extends Vue {
     constructor() {
         super();
         this.machineHub = new signalR.HubConnection(`/hubs/machines`, { transport: signalR.TransportType.WebSockets });
-        this.machineHub.on("ReportMachineSpeed", (g, n, s) => { alert(n); } )
+        this.machineHub.on("NotifyMachine", (group, name, message) => { (<any>this).$toast(`${group} - ${name} : ${message}`) } );
         this.machineHub.start().catch(err => alert(err));
         this.reportMachineSpeed();
     } 

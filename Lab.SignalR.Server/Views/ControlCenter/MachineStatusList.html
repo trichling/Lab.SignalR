@@ -9,14 +9,18 @@
 
     <div class="container">
         <div class="row align-items-center" v-for="(machineStatus, index) in machinesStatus">
-            <div class="col-auto">
+            <div class="col-1">
                 <span>{{ machineStatus.name }}</span>
             </div>
             <div class="col-auto">
                 <gauge-js :canvasId="index" v-bind:value="machineStatus.machine.speedMeterPerSecond" ></gauge-js>
             </div>
-            <div vlass="col-auto">
+            <div class="col-auto">
                 <speed-histogram style="height:200px" :chartData="machineStatus.chartData" ></speed-histogram>
+            </div>
+            <div class="col-1">
+                <textarea v-model="machineStatus.message" />
+                <button v-on:click="sendMessage(machineStatus)">Nachricht senden</button>
             </div>
         </div>
     </div>

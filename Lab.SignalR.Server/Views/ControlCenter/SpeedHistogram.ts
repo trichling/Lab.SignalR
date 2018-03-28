@@ -12,16 +12,13 @@ Vue.component('speed-histogram',  {
           maintainAspectRatio: false,
           scales: {
               xAxes: [{
-                  type: "time",
-                  scaleLabel: {
-                      display: true,
-                      lableString: "Date"
-                  }
+                      display: false
               }],
             yAxes : [{
-                scaleLabel: {
-                    display: true,
-                    lableString: "Date"
+                ticks: {
+                    min: 0,
+                    max: 10,
+                    stepSize: 1
                 }
             }]
           }

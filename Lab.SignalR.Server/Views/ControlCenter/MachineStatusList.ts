@@ -40,6 +40,13 @@ export default class MachineStatusList extends Vue {
         this.machinesStatus = [];
     }
 
+    sendMessage(machineStatus : MachineStatus) {
+        if (this.machineHub === undefined)
+            return;
+
+        this.machineHub.invoke("NotifyMachine", machineStatus.machine.group, machineStatus.machine.name, machineStatus.message)
+    }
+
     private connectToMachineHubInGroup() : void {
         this.machineHub = new signalR.HubConnection(`/hubs/machines?group=${this.selectedGroup}`, { transport: signalR.TransportType.WebSockets });
         this.machineHub.on("ReportMachineSpeed", this.machineSpeedReported);

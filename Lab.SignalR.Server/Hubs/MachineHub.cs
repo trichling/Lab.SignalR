@@ -23,6 +23,11 @@ namespace Lab.SignalR.Server.Hubs
             await Clients.Group(group).SendAsync("ReportMachineSpeed", group, machine, speed);
         }
 
+        public async Task NotifyMachine(string group, string machine, string message)
+        {
+            // //await Clients.All.SendAsync("Send", message);
+            await Clients.Others.SendAsync("NotifyMachine", group, machine, message);
+        }
     }
 
 }
