@@ -1,0 +1,16 @@
+<div>
+    <h1>Maschinen</h1>
+
+    <select v-model="selectedGroup">
+        <option v-for="group in groups" v-bind:value="group" >
+            {{ group }}
+        </option>
+    </select>
+    
+    <div v-for="machine in machinesInSelectedGroup">
+        <p>
+            {{ machine.name }} - Geschwindigkeit: {{ machine.speedMeterPerSecond }} Meter / Sekunde
+            <vue-slider :min="0" :max="10" tooltip="hover" :interval="0.1" v-model="machine.speedMeterPerSecond"></vue-slider>
+        </p>
+    </div>
+</div>

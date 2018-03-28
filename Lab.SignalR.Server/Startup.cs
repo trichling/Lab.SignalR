@@ -41,7 +41,8 @@ namespace Lab.SignalR.Server
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<ChatHub>("/chatHub");
+                routes.MapHub<ChatHub>("/hubs/chat");
+                routes.MapHub<MachineHub>("/hubs/machines");
             });
 
             app.UseMvc();

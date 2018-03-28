@@ -1,0 +1,23 @@
+<div>
+    <h1>Leitstand</h1>
+
+    <select v-model="selectedGroup">
+        <option v-for="group in groups" v-bind:value="group" >
+            {{ group }}
+        </option>
+    </select>
+
+    <div class="container">
+        <div class="row align-items-center" v-for="(machineStatus, index) in machinesStatus">
+            <div class="col-auto">
+                <span>{{ machineStatus.name }}</span>
+            </div>
+            <div class="col-auto">
+                <gauge-js :canvasId="index" v-bind:value="machineStatus.machine.speedMeterPerSecond" ></gauge-js>
+            </div>
+            <div vlass="col-auto">
+                <speed-histogram style="height:200px" :chartData="machineStatus.chartData" ></speed-histogram>
+            </div>
+        </div>
+    </div>
+</div>

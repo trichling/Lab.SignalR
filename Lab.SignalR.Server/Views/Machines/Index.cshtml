@@ -1,0 +1,14 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<script language="javascript">
+    var MachinesAPIBaseUrl = '@Configuration["Dependencies:APIs:MachinesAPIBaseUrl"]';
+</script>
+
+<div id="app">
+    <machines-list></machines-list> 
+</div>
+
+@section Scripts {
+    <script src="//@Url.ActionContext.HttpContext.Request.Host@Url.Content("~/views/Machines/index.js")"></script>
+}

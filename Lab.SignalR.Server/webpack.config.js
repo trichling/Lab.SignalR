@@ -8,7 +8,8 @@ module.exports = {
     
         entry: { 
             'Chat/Index': './Views/Chat/index.ts',
-            'GoodsReceipts/Index': './Views/GoodsReceipts/index.ts'
+            'Machines/Index': './Views/Machines/index.ts',
+            'ControlCenter/Index': './Views/ControlCenter/index.ts'
         },
          output: {
             path: path.join(__dirname, bundleOutputDir),
