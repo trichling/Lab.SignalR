@@ -1,0 +1,15 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<script language="javascript">
+    var GoodsReceiptsAPIBaseUrl = '@Configuration["Dependencies:APIs:GoodsReceiptsAPIBaseUrl"]';
+</script>
+
+<div id="app">
+    <!-- <goods-receipt-list></goods-receipt-list> -->
+    <router-view></router-view>
+</div>
+
+@section Scripts {
+    <script src="//@Url.ActionContext.HttpContext.Request.Host@Url.Content("~/views/GoodsReceipts/index.js")"></script>
+}

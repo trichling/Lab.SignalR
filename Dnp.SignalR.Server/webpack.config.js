@@ -7,7 +7,8 @@ const bundleOutputDir = './wwwroot/views';
 module.exports = {
     
         entry: { 
-            'Chat/Index': './Views/Chat/index.ts'
+            'Chat/Index': './Views/Chat/index.ts',
+            'GoodsReceipts/Index': './Views/GoodsReceipts/index.ts'
         },
          output: {
             path: path.join(__dirname, bundleOutputDir),

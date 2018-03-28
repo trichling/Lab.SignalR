@@ -1,0 +1,28 @@
+<div>
+
+    <h2>Wareingangsbuchung - Details</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Artikel Nr.</th>
+                <th>Beschreibung</th>
+                <th>Bestellte Menge</th>
+                <th>Gelieferte Menge</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="position in goodsReceipt.positions">
+                <td>{{ position.articleNumber }}</td>
+                <td>{{ position.articleDescription }}</td>
+                <td>{{ position.orderedAmount }}</td>
+                <td>
+                    <input v-bind:value="position.deliveredAmount">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <router-link to="/all">Zurück</router-link>
+    
+</div>
