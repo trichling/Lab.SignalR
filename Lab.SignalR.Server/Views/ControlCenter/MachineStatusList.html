@@ -20,8 +20,13 @@
             </div>
             <div class="col-1">
                 <textarea v-model="machineStatus.message" />
-                <button v-on:click="sendMessage(machineStatus)">Nachricht senden</button>
+                <button v-on:click="sendMachineMessage(machineStatus)">Nachricht senden</button>
             </div>
         </div>
     </div>
+
+    <p>Group Message</p>
+    <textarea v-model="groupMessage" />
+    <button v-on:click="sendGroupMessage">Nachricht an Gruppe senden</button>
+    <button v-on:click="sendAllMessage">Nachricht an alle senden</button>
 </div>

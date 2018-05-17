@@ -18,6 +18,7 @@ export default class MachineStatusList extends Vue {
     groups : string[] = [];
     selectedGroup : string = "";
     machinesStatus : MachineStatus[] = [];
+    groupMessage: string = "";
 
     @Lifecycle
     created() : void {
@@ -40,16 +41,35 @@ export default class MachineStatusList extends Vue {
         this.machinesStatus = [];
     }
 
-    sendMessage(machineStatus : MachineStatus) {
+    sendMachineMessage(machineStatus : MachineStatus) {
         if (this.machineHub === undefined)
             return;
 
-        this.machineHub.invoke("NotifyMachine", machineStatus.machine.group, machineStatus.machine.name, machineStatus.message)
+        this.machineHub.invoke("NotifyMachine", machineStatus.machine.group, machineStatus.machine.name, machineStatus.message);
+        machineStatus.message = "";
+    }
+
+    sendGroupMessage() {
+        if (this.machineHub === undefined)
+            return;
+
+        this.machineHub.invoke("NotifyGroup", this.selectedGroup, this.groupMessage);
+        this.groupMessage = "";
+    }
+
+    sendAllMessage() {
+        if (this.machineHub === undefined)
+            return;
+
+        this.machineHub.invoke("NotifyAll", this.groupMessage);
+        this.groupMessage = "";
     }
 
     private connectToMachineHubInGroup() : void {
         this.machineHub = new signalR.HubConnection(`/hubs/machines?group=${this.selectedGroup}`, { transport: signalR.TransportType.WebSockets });
-        this.machineHub.on("ReportMachineSpeed", this.machineSpeedReported);
+        this.machineHub.on("MachineSpeedReported", this.machineSpeedReported);
+        this.machineHub.on("NotifyGroup", (group, message) => { (this as any).$toast(`An ${group}: ${message}`) } );
+        this.machineHub.on("NotifyAll", (message) => { (this as any).$toast(`An alle: ${message}`) } );
         this.machineHub.start().catch(err => alert(err));
     }
 

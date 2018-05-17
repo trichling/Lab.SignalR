@@ -24,10 +24,7 @@ export default class MachinesList extends Vue {
 
     constructor() {
         super();
-        this.machineHub = new signalR.HubConnection(`/hubs/machines`, { transport: signalR.TransportType.WebSockets });
-        this.machineHub.on("NotifyMachine", (group, name, message) => { this.$toast(`${group} - ${name} : ${message}`) } );
-        this.machineHub.start().catch(err => alert(err));
-        this.reportMachineSpeed();
+        
     } 
 
     @Lifecycle
@@ -46,22 +43,25 @@ export default class MachinesList extends Vue {
             .then(response => response.json() as Promise<Machine[]>)
             .then(data => {
                 if (!this.machines[newValue])
-                    this.machines[newValue] = data;
+                    this.machines[newValue] = data.map(d => new Machine(d.group, d.name));
 
                 this.machinesInSelectedGroup = this.machines[newValue];
+
+                if (this.machineHub === undefined) {
+                    this.connectToMachineHubInGroup();
+                    return; 
+                } 
+                
+                this.machineHub.stop().then(this.connectToMachineHubInGroup);
             });
     }
-
-    private reportMachineSpeed() : void {
-        setInterval(
-            () => {
-                if (this.machineHub === undefined)
-                    return;
-
-                for (let group in this.machines) {
-                    for (let machine of this.machines[group])
-                        this.machineHub.invoke("ReportMachineSpeed", group, machine.name, machine.speedMeterPerSecond)
-            }
-        }, 1000);
+   
+    private connectToMachineHubInGroup() : void {
+        this.machineHub = new signalR.HubConnection(`/hubs/machines?group=${this.selectedGroup}`, { transport: signalR.TransportType.WebSockets });
+        this.machineHub.on("NotifyGroup", (group, message) => { (this as any).$toast(`An ${group}: ${message}`) } );
+        this.machineHub.on("NotifyAll", (message) => { (this as any).$toast(`An alle: ${message}`) } );
+        this.machineHub.on("MachineSpeedReported", (group, name, speed) => {});
+        this.machineHub.start().catch(err => alert(err));
     }
+
 }
