@@ -11,8 +11,8 @@ namespace Lab.SignalR.Server.Hubs
 
     // Authentication Scheme: Identity.Application
     //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-    //[Authorize(AuthenticationSchemes="Cookies")]
-    [Authorize]
+    [Authorize(AuthenticationSchemes="Cookies,Bearer,Identity.Application")]
+    //[Authorize]
     public class MachineHub : Hub
     {
 
