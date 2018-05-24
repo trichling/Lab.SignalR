@@ -6,12 +6,13 @@
     <title>@ViewData["Title"]</title>
 </head>
 <body>
-   
+
+    <partial name="_LoginPartial" />
+
     <div class="container body-content">
         @RenderBody()
     </div>
-
-
+  
     @RenderSection("Scripts", required: false)
 </body>
 </html>

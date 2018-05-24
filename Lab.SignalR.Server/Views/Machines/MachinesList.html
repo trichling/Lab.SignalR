@@ -11,7 +11,7 @@
         <p>
             {{ machine.name }} - Geschwindigkeit: {{ machine.speedMeterPerSecond }} Meter / Sekunde
             <vue-slider :min="0" :max="10" tooltip="hover" :interval="0.1" v-model="machine.speedMeterPerSecond"></vue-slider>
-            <textarea v-model="machine.messages" />
+            <textarea v-model="machine.messages" style="width: 100%;" />
         </p>
     </div>
 </div>

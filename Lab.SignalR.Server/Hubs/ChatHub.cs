@@ -4,14 +4,13 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Lab.SignalR.Server.Hubs 
 {
-    // https://weblogs.asp.net/ricardoperes/signalr-in-asp-net-core
     public class ChatHub : Hub
     {
 
         public override async Task OnConnectedAsync() 
         {
-            var room = this.Context.Connection.GetHttpContext().Request.Query["room"].FirstOrDefault();
-            await this.Groups.AddAsync(this.Context.ConnectionId, room);
+            var room = this.Context.GetHttpContext().Request.Query["room"].FirstOrDefault();
+            await this.Groups.AddToGroupAsync(this.Context.ConnectionId, room);
             await base.OnConnectedAsync();
         }
 

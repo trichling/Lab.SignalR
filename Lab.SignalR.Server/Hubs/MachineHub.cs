@@ -1,41 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-namespace Lab.SignalR.Server.Hubs 
+namespace Lab.SignalR.Server.Hubs
 {
-    public class MachineKey 
-    {
 
-        public MachineKey(string group, string name)
-        {
-            this.Group = group;
-            this.Name = name;
-        }
-
-        public string Group { get; set; }
-        public string Name { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            var other = obj as MachineKey;
-
-            if (other == null)
-                return false;
-
-            return Group.Equals(other.Group) && Name.Equals(other.Name);
-        }
-
-        public override int GetHashCode() {
-            return this.Group.GetHashCode() ^ this.Name.GetHashCode();
-        }
-    }
-
-    // https://weblogs.asp.net/ricardoperes/signalr-in-asp-net-core
+    // Authentication Scheme: Identity.Application
+    //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes="Cookies")]
+    [Authorize]
     public class MachineHub : Hub
     {
 
@@ -43,8 +20,9 @@ namespace Lab.SignalR.Server.Hubs
 
         public override async Task OnConnectedAsync() 
         {
-            var group = this.Context.Connection.GetHttpContext().Request.Query["group"].FirstOrDefault();
-            var name = this.Context.Connection.GetHttpContext().Request.Query["name"].FirstOrDefault();
+            var user = this.Context.User;
+            var group = this.Context.GetHttpContext().Request.Query["group"].FirstOrDefault();
+            var name = this.Context.GetHttpContext().Request.Query["name"].FirstOrDefault();
 
             if (group != null && name != null)
             {
@@ -55,7 +33,7 @@ namespace Lab.SignalR.Server.Hubs
                 machineConnections[key] = this.Context.ConnectionId;
             }
             else if (group != null)
-                await this.Groups.AddAsync(this.Context.ConnectionId, group);
+                await this.Groups.AddToGroupAsync(this.Context.ConnectionId, group);
             
             await base.OnConnectedAsync();
         }

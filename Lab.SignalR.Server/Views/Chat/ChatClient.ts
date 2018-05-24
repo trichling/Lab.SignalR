@@ -10,9 +10,7 @@ declare var room : string;
 })
 export default class ChatClient extends Vue {
 
-    private transportType = signalR.TransportType.WebSockets;
-    private logger = new signalR.ConsoleLogger(signalR.LogLevel.Information);
-    private connection = new signalR.HubConnection(`/chatHub?room=${room}`, { transport: this.transportType, logger: this.logger });
+    private connection = new signalR.HubConnectionBuilder().withUrl(`/hubs/chat?room=${room}`).build();
 
     message : string = "Hallo Welt!";
     room : string = "Test";

@@ -22,11 +22,6 @@ export default class MachinesList extends Vue {
     machines : { [id : string] : Machine[] } = {};
     machinesInSelectedGroup : Machine[] = [];
 
-    constructor() {
-        super();
-        
-    } 
-
     @Lifecycle
     created() : void {
         fetch(`${MachinesAPIBaseUrl}/groups`)
@@ -57,7 +52,7 @@ export default class MachinesList extends Vue {
     }
    
     private connectToMachineHubInGroup() : void {
-        this.machineHub = new signalR.HubConnection(`/hubs/machines?group=${this.selectedGroup}`, { transport: signalR.TransportType.WebSockets });
+        this.machineHub = new signalR.HubConnectionBuilder().withUrl(`/hubs/machines?group=${this.selectedGroup}`).withHubProtocol(new signalR.JsonHubProtocol()).build(); 
         this.machineHub.on("NotifyGroup", (group, message) => { (this as any).$toast(`An ${group}: ${message}`) } );
         this.machineHub.on("NotifyAll", (message) => { (this as any).$toast(`An alle: ${message}`) } );
         this.machineHub.on("MachineSpeedReported", (group, name, speed) => {});

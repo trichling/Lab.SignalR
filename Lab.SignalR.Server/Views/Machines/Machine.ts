@@ -8,7 +8,7 @@ export default class Machine {
     constructor(group: string, name : string) {
             this.group = group,
             this.name = name;
-            this.machineHub = new signalR.HubConnection(`/hubs/machines?group=${this.group}&name=${this.name}`, { transport: signalR.TransportType.WebSockets });
+            this.machineHub = new signalR.HubConnectionBuilder().withUrl(`/hubs/machines?group=${this.group}&name=${this.name}`).withHubProtocol(new signalR.JsonHubProtocol()).build(); 
             this.machineHub.on("NotifyMachine", (group, name, message) => { this.messages += `${message}\r\n` } );
             this.machineHub.on("NotifyGroup", (group, message) => { this.messages += `An ${group}: ${message}` } );
             this.machineHub.on("NotifyAll", (message) => { this.messages += `ACHTUNG: An alle: ${message}\r\n` } );
@@ -26,7 +26,7 @@ export default class Machine {
             () => {
                 if (this.machineHub === undefined)
                     return;
-                this.machineHub.invoke("ReportMachineSpeed", this.group, this.name, this.speedMeterPerSecond)
+                this.machineHub.invoke("ReportMachineSpeed", this.group, this.name, this.speedMeterPerSecond);
         }, 1000);
     }
 }

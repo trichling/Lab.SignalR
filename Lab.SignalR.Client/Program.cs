@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
 
 namespace Lab.SignalR.Client
 {
@@ -25,15 +27,17 @@ namespace Lab.SignalR.Client
         {
             Console.ReadLine();
 
-            var baseUrl = "http://localhost:5000/chatHub?room=Test" ;
+            var baseUrl = "http://localhost:5000/hubs/machines" ;
 
             Console.WriteLine("Connecting to {0}", baseUrl);
             var connection = new HubConnectionBuilder()
-                .WithUrl(baseUrl)
-                .WithConsoleLogger(LogLevel.Trace)
+                .WithUrl(baseUrl + "?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmljaGxpbmdAZ214LmRlIiwianRpIjoiZTUzYjZmOWUtYzk0Ny00ZDY1LWJlZDAtNWViYmExNDEwMDM5IiwibmJmIjoxNTI3MTUyNzg1LCJleHAiOjE1MzIzMzY3ODUsImlzcyI6Ik1lIiwiYXVkIjoiRXZlcnlib2R5In0.WobxWlk-2crbBQSUBcY-eeAI2g1PhcxeEtrc9pfqJO8", opt => {
+                    opt.Headers.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmljaGxpbmdAZ214LmRlIiwianRpIjoiZTUzYjZmOWUtYzk0Ny00ZDY1LWJlZDAtNWViYmExNDEwMDM5IiwibmJmIjoxNTI3MTUyNzg1LCJleHAiOjE1MzIzMzY3ODUsImlzcyI6Ik1lIiwiYXVkIjoiRXZlcnlib2R5In0.WobxWlk-2crbBQSUBcY-eeAI2g1PhcxeEtrc9pfqJO8");
+                })
+                .ConfigureLogging(logging => logging.AddConsole().SetMinimumLevel(LogLevel.Debug))
                 .Build();
 
-            await ConnectAsync(connection);
+            await connection.StartAsync();
             
             var closeTcs  = new CancellationTokenSource();
             Console.CancelKeyPress += async (sender, a) =>
@@ -51,13 +55,9 @@ namespace Lab.SignalR.Client
                     closeTcs.Cancel();
                     continue;
                 }
-                await connection.SendAsync("Send", "Test", message);
-                
+                await connection.InvokeAsync("NotifyAll", message);
             }
 
-            await connection.SendAsync("Send", "Test", "Hallo From Console!");
-
-            
             Console.ReadLine();
 
             return 0;
