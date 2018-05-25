@@ -37,6 +37,8 @@ namespace Lab.SignalR.Client
                 .ConfigureLogging(logging => logging.AddConsole().SetMinimumLevel(LogLevel.Debug))
                 .Build();
 
+            connection.On("NotifyAll", new [] { typeof(string) }, async message => Console.WriteLine($"An Alle: {message[0]}"));
+
             await connection.StartAsync();
             
             var closeTcs  = new CancellationTokenSource();
@@ -44,7 +46,7 @@ namespace Lab.SignalR.Client
             {
                 a.Cancel = true;
                 Console.WriteLine("Stopping loops...");
-                await connection.DisposeAsync();
+                await connection.StopAsync();
             };
 
             while (!closeTcs.IsCancellationRequested)
@@ -62,22 +64,6 @@ namespace Lab.SignalR.Client
 
             return 0;
         }
-
-        private static async Task ConnectAsync(HubConnection connection)
-        {
-            // Keep trying to until we can start
-            while (true)
-            {
-                try
-                {
-                    await connection.StartAsync();
-                    return;
-                }
-                catch (Exception)
-                {
-                    await Task.Delay(1000);
-                }
-            }
-        }
+      
     }
 }

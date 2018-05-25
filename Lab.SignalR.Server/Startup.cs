@@ -47,8 +47,8 @@ namespace Lab.SignalR.Server
 
             services
                 .AddAuthentication()
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt => {
-                })
+                // .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt => {
+                // })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt => {
                     opt.TokenValidationParameters = new TokenValidationParameters()
                     {
@@ -58,7 +58,7 @@ namespace Lab.SignalR.Server
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = "Me",
                         ValidAudience = "Everybody",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CorrectHoresBatteryStaple"))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CorrectHorseBatteryStaple"))
                     };
                     opt.Events = new JwtBearerEvents
                     {
