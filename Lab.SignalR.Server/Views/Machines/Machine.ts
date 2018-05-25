@@ -1,5 +1,7 @@
 import * as signalR from "@aspnet/signalr";
 
+declare var MachinesAPIBaseUrl : string;
+
 export default class Machine {
 
     private machineHub? : signalR.HubConnection = undefined;
@@ -20,6 +22,10 @@ export default class Machine {
     name: string = "";
     speedMeterPerSecond : number = 0;
     messages: string = "";
+
+    reportFailure() {
+        fetch(`${MachinesAPIBaseUrl}/machines/${this.group}/${this.name}/failure`, { method: "POST", credentials: "include" });
+    }
 
     private reportMachineSpeed() : void {
         setInterval(

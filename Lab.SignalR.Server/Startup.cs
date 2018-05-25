@@ -47,8 +47,6 @@ namespace Lab.SignalR.Server
 
             services
                 .AddAuthentication()
-                // .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt => {
-                // })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt => {
                     opt.TokenValidationParameters = new TokenValidationParameters()
                     {

@@ -31,7 +31,8 @@ namespace Lab.SignalR.Client
 
             Console.WriteLine("Connecting to {0}", baseUrl);
             var connection = new HubConnectionBuilder()
-                .WithUrl(baseUrl + "?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmljaGxpbmdAZ214LmRlIiwianRpIjoiZTUzYjZmOWUtYzk0Ny00ZDY1LWJlZDAtNWViYmExNDEwMDM5IiwibmJmIjoxNTI3MTUyNzg1LCJleHAiOjE1MzIzMzY3ODUsImlzcyI6Ik1lIiwiYXVkIjoiRXZlcnlib2R5In0.WobxWlk-2crbBQSUBcY-eeAI2g1PhcxeEtrc9pfqJO8", opt => {
+                .WithUrl(baseUrl,  
+                opt => {
                     opt.Headers.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0cmljaGxpbmdAZ214LmRlIiwianRpIjoiZTUzYjZmOWUtYzk0Ny00ZDY1LWJlZDAtNWViYmExNDEwMDM5IiwibmJmIjoxNTI3MTUyNzg1LCJleHAiOjE1MzIzMzY3ODUsImlzcyI6Ik1lIiwiYXVkIjoiRXZlcnlib2R5In0.WobxWlk-2crbBQSUBcY-eeAI2g1PhcxeEtrc9pfqJO8");
                 })
                 .ConfigureLogging(logging => logging.AddConsole().SetMinimumLevel(LogLevel.Debug))
