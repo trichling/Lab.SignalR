@@ -34,7 +34,7 @@ export default class MachinesList extends Vue {
     @Watch("selectedGroup")
     selectedGroupChanged(newValue : string, oldValue : string)
     {
-        fetch(`${MachinesAPIBaseUrl}/machines/${newValue}`)
+        fetch(`${MachinesAPIBaseUrl}/${newValue}`)
             .then(response => response.json() as Promise<Machine[]>)
             .then(data => {
                 if (!this.machines[newValue])
@@ -43,15 +43,15 @@ export default class MachinesList extends Vue {
                 this.machinesInSelectedGroup = this.machines[newValue];
 
                 if (this.machineHub === undefined) {
-                    this.connectToMachineHubInGroup();
+                    this.connectToGroup();
                     return; 
                 } 
                 
-                this.machineHub.stop().then(this.connectToMachineHubInGroup);
+                this.machineHub.stop().then(this.connectToGroup);
             });
     }
    
-    private connectToMachineHubInGroup() : void {
+    private connectToGroup() : void {
         this.machineHub = new signalR.HubConnectionBuilder().withUrl(`/hubs/machines?group=${this.selectedGroup}`).withHubProtocol(new signalR.JsonHubProtocol()).build(); 
         this.machineHub.on("NotifyGroup", (group, message) => { (this as any).$toast(`An ${group}: ${message}`) } );
         this.machineHub.on("NotifyAll", (message) => { (this as any).$toast(`An alle: ${message}`) } );

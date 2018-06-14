@@ -24,7 +24,7 @@ export default class Machine {
     messages: string = "";
 
     reportFailure() {
-        fetch(`${MachinesAPIBaseUrl}/machines/${this.group}/${this.name}/failure`, { method: "POST", credentials: "include" });
+        fetch(`${MachinesAPIBaseUrl}/${this.group}/${this.name}/failure`, { method: "POST", credentials: "include" });
     }
 
     private reportMachineSpeed() : void {

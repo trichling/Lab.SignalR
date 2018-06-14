@@ -40,14 +40,14 @@ namespace Lab.SignalR.Server.Controllers
             return Ok(_machines.Keys.ToList());
         }
 
-        [Route("machines/{group}")]
+        [Route("{group}")]
         public IActionResult MachinesPerGroup([FromRoute] string group)
         {
             return Ok(_machines[group]);
         }
 
         [HttpPost]
-        [Route("machines/{group}/{name}/failure")]
+        [Route("{group}/{name}/failure")]
         public async Task<IActionResult> ReportFailure([FromRoute] string group, [FromRoute] string name)
         {
             await machineHub.Clients.All.SendAsync("NotifyAll", $"{group} - {name}: Habe Störung!");

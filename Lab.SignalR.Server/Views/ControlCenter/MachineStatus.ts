@@ -14,7 +14,7 @@ export default class MachineStatus {
     pushSpeed(speed : number) {
         this.machine.speedMeterPerSecond = speed;
 
-        if (this.speedHistory.length > 20)
+        if (this.speedHistory.length > 60)
             this.speedHistory.shift();
 
         this.speedHistory.push(speed);
