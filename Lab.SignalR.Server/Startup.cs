@@ -39,11 +39,12 @@ namespace Lab.SignalR.Server
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
-                
+
             services
                 .AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
 
             services
                 .AddAuthentication()
@@ -57,23 +58,6 @@ namespace Lab.SignalR.Server
                         ValidIssuer = "Me",
                         ValidAudience = "Everybody",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("CorrectHorseBatteryStaple"))
-                    };
-                    opt.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
-                        {
-                            if (context.Request.Query.TryGetValue("token", out StringValues token))
-                            {
-                                context.Token = token;
-                            }
-            
-                            return Task.CompletedTask;
-                        },
-                        OnAuthenticationFailed = context =>
-                        {
-                            var te = context.Exception;
-                            return Task.CompletedTask;
-                        }
                     };
                 })
                 ;

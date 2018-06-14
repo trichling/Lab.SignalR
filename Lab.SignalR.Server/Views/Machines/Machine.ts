@@ -10,7 +10,10 @@ export default class Machine {
     constructor(group: string, name : string) {
             this.group = group,
             this.name = name;
-            this.machineHub = new signalR.HubConnectionBuilder().withUrl(`/hubs/machines?group=${this.group}&name=${this.name}`).withHubProtocol(new signalR.JsonHubProtocol()).build(); 
+            this.machineHub = new signalR.HubConnectionBuilder()
+                .withUrl(`/hubs/machines?group=${this.group}&name=${this.name}`)
+                .withHubProtocol(new signalR.JsonHubProtocol())
+                .build(); 
             this.machineHub.on("NotifyMachine", (group, name, message) => { this.messages += `${message}\r\n` } );
             this.machineHub.on("NotifyGroup", (group, message) => { this.messages += `An ${group}: ${message}` } );
             this.machineHub.on("NotifyAll", (message) => { this.messages += `ACHTUNG: An alle: ${message}\r\n` } );

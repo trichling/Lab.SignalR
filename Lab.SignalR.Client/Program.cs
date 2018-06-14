@@ -25,6 +25,7 @@ namespace Lab.SignalR.Client
 
         private static async Task<int> SendMessage()
         {
+            Console.WriteLine("Bitte <Enter> drücken, um Verbindung zum Hub zu öffnen.");
             Console.ReadLine();
 
             var baseUrl = "http://localhost:5000/hubs/machines" ;
@@ -42,25 +43,18 @@ namespace Lab.SignalR.Client
 
             await connection.StartAsync();
             
-            var closeTcs  = new CancellationTokenSource();
-            Console.CancelKeyPress += async (sender, a) =>
+            while (true)
             {
-                a.Cancel = true;
-                Console.WriteLine("Stopping loops...");
-                await connection.StopAsync();
-            };
-
-            while (!closeTcs.IsCancellationRequested)
-            {
+                Console.WriteLine("Bitte eine Nachricht eingeben:");
                 var message = Console.ReadLine();
                 if (message == "QUIT")
                 {
-                    closeTcs.Cancel();
-                    continue;
+                    break;
                 }
                 await connection.InvokeAsync("NotifyAll", message);
             }
 
+            await connection.StopAsync();
             Console.ReadLine();
 
             return 0;

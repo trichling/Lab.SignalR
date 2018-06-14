@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.SignalR;
 namespace Lab.SignalR.Server.Hubs
 {
 
-    [Authorize(AuthenticationSchemes="Bearer,Identity.Application")]
+    //[Authorize]
+    [Authorize(AuthenticationSchemes="Identity.Application,Bearer")]
     public class MachineHub : Hub
     {
 
